@@ -38,7 +38,9 @@ class CashRegister:
 
     def apply_discount(self):
         """Reduce the total by the configured percentage and record that adjustment."""
-        if not self.previous_transactions:
+        # A zero-percent setting is not an applicable discount, even when the
+        # shared transaction history still contains an earlier item.
+        if self.discount == 0 or not self.previous_transactions:
             print("There is no discount to apply.")
             return
 
